@@ -91,6 +91,119 @@ FURTHER_MODELS = {
     },
 }
 
+NEW_LORAS_BATCH = {
+      "20": {
+          "type": "lora",
+          "id": "712947",
+          "name": "Add_Details_v1.2.safetensors"
+      },
+      "21": {
+          "type": "lora",
+          "id": "539667",
+          "name": "StS_PonyXL_Detail_Slider_v1.4_iteration_3.safetensors"
+      },
+      "22": {
+          "type": "lora",
+          "id": "1733377",
+          "name": "Age Slider V2_alpha1.0_rank4_noxattn_last.safetensors"
+      },
+      "23": {
+          "type": "lora",
+          "id": "535841",
+          "name": "Curve slider PonyV2_alpha16.0rank32_full_last.safetensors"
+      },
+      "24": {
+          "type": "lora",
+          "id": "1133274",
+          "name": "Eye size Slider - PNY_alpha1.0_rank4_noxattn_last.safetensors"
+      },
+      "25": {
+          "type": "lora",
+          "id": "1926995",
+          "name": "Tan slider_alpha1.0_rank4_full_last.safetensors"
+      },
+      "26": {
+          "type": "lora",
+          "id": "1969907",
+          "name": "mature_female_slider_pony_v2.safetensors"
+      },
+      "27": {
+          "type": "lora",
+          "id": "1851961",
+          "name": "Toned_XL_v1.safetensors"
+      },
+      "28": {
+          "type": "lora",
+          "id": "1430143",
+          "name": "hair_length_v1.safetensors"
+      },
+      "29": {
+          "type": "lora",
+          "id": "1207307",
+          "name": "ThiccPonyXL_V1.safetensors"
+      },
+      "30": {
+          "type": "lora",
+          "id": "1960014",
+          "name": "Bimbo Makeup By Stable Yogi Pony.safetensors"
+      },
+      "31": {
+          "type": "lora",
+          "id": "1598387",
+          "name": "makeda-000011ta.safetensors"
+      },
+      "32": {
+          "type": "lora",
+          "id": "2043984",
+          "name": "sexygeisha-000012.TA_trained.safetensors"
+      },
+      "33": {
+          "type": "lora",
+          "id": "2095629",
+          "name": "flora.safetensors"
+      },
+      "34": {
+          "type": "lora",
+          "id": "1664544",
+          "name": "cindy-000021XLci.safetensors"
+      },
+      "35": {
+          "type": "lora",
+          "id": "2043984",
+          "name": "sexygeisha-000012.TA_trained.safetensors"
+      },
+      "36": {
+          "type": "lora",
+          "id": "1577751",
+          "name": "tatiana-000010.TA_trained.safetensors"
+      },
+      "37": {
+          "type": "lora",
+          "id": "1559804",
+          "name": "Blondie-000010SDXLta.safetensors"
+      },
+      "38": {
+          "type": "lora",
+          "id": "2150762",
+          "name": "Woman549.safetensors"
+      },
+      "39": {
+          "type": "lora",
+          "id": "2093616",
+          "name": "Woman037.safetensors"
+      },
+      "40": {
+          "type": "lora",
+          "id": "2013091",
+          "name": "Woman033.safetensors"
+      },
+      "41": {
+          "type": "lora",
+          "id": "1994352",
+          "name": "2013091.safetensors"
+      },
+  }
+
 LOCAL_MODELS = {
     "8": {
         "type": "lora",
@@ -118,7 +231,7 @@ FACEDETAILER_MODELS = {
 }
 
 # Merge the dictionaries
-ALL_MODELS = MODELS | NEW_MODELS | FURTHER_MODELS | LOCAL_MODELS | FACEDETAILER_MODELS
+ALL_MODELS = MODELS | NEW_MODELS | FURTHER_MODELS | LOCAL_MODELS | FACEDETAILER_MODELS | NEW_LORAS_BATCH
 
 @app.function(volumes={"/model-cache": tmp_volume})
 def download_and_link_civitai_model(model_type: str, model_id: str, desired_filename: str):
@@ -279,7 +392,7 @@ def main():
 
     # 1. Download and create symlinks - WAIT for completion
     download_futures = []
-    for key, model in FURTHER_MODELS.items():
+    for key, model in NEW_LORAS_BATCH.items():
         future = download_and_link_civitai_model.remote(model["type"], model["id"], model["name"])
         download_futures.append(future)
     
